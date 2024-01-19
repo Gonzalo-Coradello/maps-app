@@ -53,13 +53,9 @@ export const useMapStore = defineStore('map', {
     },
 
     async getRouteBetweenPoints({ start, end }: { start: LngLat; end: LngLat }) {
-      console.log('getRouteBetweenPoints')
-
       const { data } = await directionsApi.get<DirectionsResponse>(
         `${start.join(',')};${end.join(',')}`
       )
-
-      console.log(data.routes[0].geometry.coordinates)
 
       this.setDistanceDuration({
         distance: data.routes[0].distance,
@@ -70,13 +66,7 @@ export const useMapStore = defineStore('map', {
     },
 
     setRoutePolyline(coords: number[][]) {
-      console.log('setRoutePolyline')
-
       const start = coords[0]
-
-      console.log({ start })
-      console.log([start[0], start[1]], [start[0], start[1]])
-      // const end = coords[coords.length - 1]
 
       // Definir los bounds
       const bounds = new mapboxgl.LngLatBounds([start[0], start[1]], [start[0], start[1]])
